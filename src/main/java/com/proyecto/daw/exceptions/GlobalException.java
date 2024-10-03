@@ -40,4 +40,18 @@ public class GlobalException {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiError);
     }
+
+    // CONTROL DE EXCEPTION PERSONALIZADA - CategoriaNoEncontrada
+    @ExceptionHandler(CategoriaNotFoundException.class)
+    public ResponseEntity<?> categoriaNotFoundException(CategoriaNotFoundException ex, HttpServletRequest request) {
+        ApiError apiError = new ApiError();
+        apiError.setBackendMensaje(ex.getLocalizedMessage());
+        apiError.setUri(request.getRequestURI());
+        apiError.setMetodo(request.getMethod());
+        apiError.setFecha(LocalDateTime.now());
+
+        apiError.setMensaje("CATEGORÍA NO ENCONTRADA");
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiError);
+    }
 }

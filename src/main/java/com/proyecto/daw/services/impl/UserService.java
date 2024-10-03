@@ -68,7 +68,7 @@ public class UserService  implements IUsuario {
         usuario.setApellido(saveUsuario.getApellido());
         usuario.setEmail(saveUsuario.getEmail());
         usuario.setPassword(passwordEncoder.encode(saveUsuario.getPassword()));
-        usuario.setRol(Rol.USUARIO);
+        usuario.setRol(Rol.ADMINISTRADOR);
         usuario.setEstado(EstadoUsuario.INACTIVO);
 
         return usuarioRepo.save(usuario);

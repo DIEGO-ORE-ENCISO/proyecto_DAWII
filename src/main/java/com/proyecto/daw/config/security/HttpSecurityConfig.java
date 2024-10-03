@@ -45,6 +45,7 @@ public class HttpSecurityConfig {
                 .authorizeHttpRequests(authRequest ->{
                     authRequest.requestMatchers("/auth/**").permitAll();
                     authRequest.requestMatchers("/user/**").hasRole(Rol.ADMINISTRADOR.name());
+                    authRequest.requestMatchers("/categoria/**").permitAll(); // Proteger rutas de "categoria"
                     authRequest.anyRequest().authenticated();
                 })
                 .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler()))
