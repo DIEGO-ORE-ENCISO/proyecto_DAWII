@@ -26,6 +26,12 @@ public class Producto {
     @Column(name = "precio", nullable = false)
     private Double precio;
 
+    @Column(name = "stock_prod", nullable = false)
+    private Integer stock;
+
+    @Column(name = "imagen")
+    private String imagen;
+
     @Column(name = "estado_producto", nullable = false)
     private String estadoProducto;
 

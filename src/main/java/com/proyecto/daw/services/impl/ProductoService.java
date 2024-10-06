@@ -36,7 +36,7 @@ public class ProductoService {
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
 
         Producto producto = mapToEntity(productoDTO);
-        producto.setCategoriaProd(categoria);
+        producto.setCategoriaProd(categoria); // Asegúrate de que aquí no falta nada
         Producto nuevoProducto = productoRepository.save(producto);
         return mapToDTO(nuevoProducto);
     }
@@ -45,18 +45,24 @@ public class ProductoService {
         Producto producto = productoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Producto no encontrado"));
 
+        // Asigna los valores del DTO al objeto Producto
         producto.setNombreProducto(productoDTO.getNombreProducto());
         producto.setDescripcion(productoDTO.getDescripcion());
         producto.setPrecio(productoDTO.getPrecio());
         producto.setEstadoProducto(productoDTO.getEstadoProducto());
+        producto.setStock(productoDTO.getStock()); // Asegúrate de asignar el stock
+        producto.setImagen(productoDTO.getImagen()); // Asegúrate de asignar la imagen
 
+        // Actualiza la categoría
         CategoriaProd categoria = categoriaRepository.findById(productoDTO.getCategoriaProdId())
                 .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
         producto.setCategoriaProd(categoria);
 
+        // Guarda el producto actualizado
         Producto productoActualizado = productoRepository.save(producto);
         return mapToDTO(productoActualizado);
     }
+
 
     public void deleteProducto(Long id) {
         Producto producto = productoRepository.findById(id)
@@ -71,9 +77,13 @@ public class ProductoService {
         productoDTO.setDescripcion(producto.getDescripcion());
         productoDTO.setPrecio(producto.getPrecio());
         productoDTO.setEstadoProducto(producto.getEstadoProducto());
+        productoDTO.setStock(producto.getStock());
+        productoDTO.setImagen(producto.getImagen()); // Asegúrate de incluir esta línea
         productoDTO.setCategoriaProdId(producto.getCategoriaProd().getId());
         return productoDTO;
     }
+
+
 
     private Producto mapToEntity(ProductoDTO productoDTO) {
         Producto producto = new Producto();
@@ -81,6 +91,8 @@ public class ProductoService {
         producto.setDescripcion(productoDTO.getDescripcion());
         producto.setPrecio(productoDTO.getPrecio());
         producto.setEstadoProducto(productoDTO.getEstadoProducto());
+        producto.setStock(productoDTO.getStock()); // Asegúrate de incluir esta línea si es necesario
+        producto.setImagen(productoDTO.getImagen()); // Asegúrate de incluir esta línea
         return producto;
     }
 }
