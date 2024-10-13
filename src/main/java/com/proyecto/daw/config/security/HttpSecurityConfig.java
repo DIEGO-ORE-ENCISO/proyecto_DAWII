@@ -47,6 +47,8 @@ public class HttpSecurityConfig {
                     authRequest.requestMatchers("/user/**").hasRole(Rol.ADMINISTRADOR.name());
                     authRequest.requestMatchers("/categoria/**").permitAll();
                     authRequest.requestMatchers("/producto/**").permitAll();
+                    authRequest.requestMatchers("/carrito/**").permitAll();
+                    authRequest.requestMatchers("/ventas/**").permitAll();
                     authRequest.anyRequest().authenticated();
                 })
                 .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler()))
